@@ -198,7 +198,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
                     reject(err);
                     return;
                 }
-                resolve(value);
+                resolve(JSON.parse(value));
             });
         });
     }
@@ -216,7 +216,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
         this.checkOpened(correlationId);
 
         return new Promise<any>((resolve, reject) => {
-            this._client.set(key, value, 'PX', timeout, (err, value) => {
+            this._client.set(key, JSON.stringify(value), 'PX', timeout, (err, value) => {
                 if (err != null) {
                     reject(err);
                     return;
@@ -242,7 +242,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
                     reject(err);
                     return;
                 }
-                resolve(value);
+                resolve(JSON.parse(value));
             });
         });
     }

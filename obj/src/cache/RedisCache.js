@@ -181,7 +181,7 @@ class RedisCache {
                     reject(err);
                     return;
                 }
-                resolve(value);
+                resolve(JSON.parse(value));
             });
         });
     }
@@ -197,7 +197,7 @@ class RedisCache {
     store(correlationId, key, value, timeout) {
         this.checkOpened(correlationId);
         return new Promise((resolve, reject) => {
-            this._client.set(key, value, 'PX', timeout, (err, value) => {
+            this._client.set(key, JSON.stringify(value), 'PX', timeout, (err, value) => {
                 if (err != null) {
                     reject(err);
                     return;
@@ -221,7 +221,7 @@ class RedisCache {
                     reject(err);
                     return;
                 }
-                resolve(value);
+                resolve(JSON.parse(value));
             });
         });
     }

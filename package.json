@@ -1,6 +1,6 @@
 {
     "name": "pip-services3-redis-nodex",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Conceptual Vision Consulting LLC",
     "description": "Redis components for Pip.Services in Node.js / ES2017",
     "contributors": [
