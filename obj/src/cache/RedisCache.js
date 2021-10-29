@@ -181,7 +181,7 @@ class RedisCache {
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(value));
+                resolve(value ? JSON.parse(value) : value);
             });
         });
     }
@@ -221,7 +221,7 @@ class RedisCache {
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(value));
+                resolve(value ? JSON.parse(value) : value);
             });
         });
     }

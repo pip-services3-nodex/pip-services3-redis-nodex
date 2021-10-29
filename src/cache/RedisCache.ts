@@ -50,7 +50,7 @@ import { ICache } from 'pip-services3-components-nodex';
 export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpenable {
     private _connectionResolver: ConnectionResolver = new ConnectionResolver();
     private _credentialResolver: CredentialResolver = new CredentialResolver();
-    
+
     private _timeout: number = 30000;
     private _retries: number = 3;
 
@@ -59,7 +59,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
     /**
      * Creates a new instance of this cache.
      */
-    public constructor() {}
+    public constructor() { }
 
     /**
      * Configures component by passing configuration parameters.
@@ -75,9 +75,9 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
     }
 
     /**
-	 * Sets references to dependent components.
-	 * 
-	 * @param references 	references to locate the component dependencies. 
+     * Sets references to dependent components.
+     * 
+     * @param references 	references to locate the component dependencies. 
      */
     public setReferences(references: IReferences): void {
         this._connectionResolver.setReferences(references);
@@ -85,18 +85,18 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
     }
 
     /**
-	 * Checks if the component is opened.
-	 * 
-	 * @returns true if the component has been opened and false otherwise.
+     * Checks if the component is opened.
+     * 
+     * @returns true if the component has been opened and false otherwise.
      */
     public isOpen(): boolean {
         return this._client;
     }
 
     /**
-	 * Opens the component.
-	 * 
-	 * @param correlationId 	(optional) transaction id to trace execution through call chain.
+     * Opens the component.
+     * 
+     * @param correlationId 	(optional) transaction id to trace execution through call chain.
      */
     public async open(correlationId: string): Promise<void> {
         let connection = await this._connectionResolver.resolve(correlationId);
@@ -115,10 +115,10 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
             // max_attempts: this._retries,
             retry_strategy: (options) => { return this.retryStrategy(options); }
         };
-                
+
         if (connection.getUri() != null) {
             options.url = connection.getUri();
-        } else {                    
+        } else {
             options.host = connection.getHost() || 'localhost';
             options.port = connection.getPort() || 6379;
         }
@@ -132,9 +132,9 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
     }
 
     /**
-	 * Closes component and frees used resources.
-	 * 
-	 * @param correlationId 	(optional) transaction id to trace execution through call chain.
+     * Closes component and frees used resources.
+     * 
+     * @param correlationId 	(optional) transaction id to trace execution through call chain.
      */
     public async close(correlationId: string): Promise<void> {
         if (this._client == null) return;
@@ -149,7 +149,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
             });
         });
 
-        this._client = null;    
+        this._client = null;
     }
 
     private checkOpened(correlationId: string): void {
@@ -161,7 +161,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
             );
         }
     }
-    
+
     private retryStrategy(options: any): any {
         if (options.error && options.error.code === 'ECONNREFUSED') {
             // End reconnecting on a specific error and flush all commands with
@@ -198,7 +198,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(value));
+                resolve(value ? JSON.parse(value) : value);
             });
         });
     }
@@ -242,9 +242,9 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
                     reject(err);
                     return;
                 }
-                resolve(JSON.parse(value));
+                resolve(value ? JSON.parse(value) : value);
             });
         });
     }
-    
+
 }
