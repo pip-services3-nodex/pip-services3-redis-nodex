@@ -29,6 +29,7 @@ export class CacheFixture {
         await this._cache.store(null, KEY3, VALUE3, 5000);
         await this._cache.store(null, KEY4, VALUE4, 5000);
         await this._cache.store(null, KEY5, VALUE5, 5000);
+        await this._cache.store(null, KEY6, VALUE6, 5000);
 
         await new Promise(resolve => setTimeout(resolve, 500));
 

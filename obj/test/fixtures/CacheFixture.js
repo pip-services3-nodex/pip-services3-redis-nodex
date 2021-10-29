@@ -35,6 +35,7 @@ class CacheFixture {
             yield this._cache.store(null, KEY3, VALUE3, 5000);
             yield this._cache.store(null, KEY4, VALUE4, 5000);
             yield this._cache.store(null, KEY5, VALUE5, 5000);
+            yield this._cache.store(null, KEY6, VALUE6, 5000);
             yield new Promise(resolve => setTimeout(resolve, 500));
             let val = yield this._cache.retrieve(null, KEY1);
             assert.isNotNull(val);
