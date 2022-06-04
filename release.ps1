@@ -32,9 +32,13 @@ Write-Host "Getting $($package.name) versions from npm registry..."
 
 # Check if version exist on npmjs
 $npmjsPackageVersionsRaw = npm view $package.name versions
+node -v
+Write-Host $npmjsPackageVersionsRaw 
 if ($npmjsPackageVersionsRaw[0] -ne "[") { # if npm returned str instead of array
+    Write-Host "Updating npm view responce"
     $npmjsPackageVersionsRaw = "[ $npmjsPackageVersionsRaw ]"
 }
+Write-Host $npmjsPackageVersionsRaw
 $npmjsPackageVersions = $npmjsPackageVersionsRaw | ConvertFrom-Json
 if ($npmjsPackageVersions -contains $package.version) {
     Write-Host "Package already exists on npmjs, publish skipped."
