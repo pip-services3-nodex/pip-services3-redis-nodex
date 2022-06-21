@@ -90,7 +90,7 @@ export class RedisCache implements ICache, IConfigurable, IReferenceable, IOpena
      * @returns true if the component has been opened and false otherwise.
      */
     public isOpen(): boolean {
-        return this._client;
+        return this._client != null;
     }
 
     /**

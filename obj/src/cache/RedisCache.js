@@ -88,7 +88,7 @@ class RedisCache {
      * @returns true if the component has been opened and false otherwise.
      */
     isOpen() {
-        return this._client;
+        return this._client != null;
     }
     /**
      * Opens the component.
