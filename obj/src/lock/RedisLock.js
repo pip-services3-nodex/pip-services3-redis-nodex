@@ -92,7 +92,7 @@ class RedisLock extends pip_services3_components_nodex_3.Lock {
      * @returns true if the component has been opened and false otherwise.
      */
     isOpen() {
-        return this._client;
+        return this._client != null;
     }
     /**
      * Opens the component.
